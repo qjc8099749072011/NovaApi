@@ -20,6 +20,11 @@ type GeneralSetting struct {
 	CustomCurrencySymbol string `json:"custom_currency_symbol"`
 	// 自定义货币与美元汇率（1 USD = X Custom）
 	CustomCurrencyExchangeRate float64 `json:"custom_currency_exchange_rate"`
+	// 显示倍率：用于前端展示的虚标系数
+	// 影响：1) pricing API 返回的 model_ratio 乘以此值 2) 前端 quota_per_unit 除以此值
+	// 默认 1.0 表示不虚标；小于 1 表示降低显示价格、膨胀余额显示
+	// 注意：不影响后端实际扣费逻辑
+	DisplayRatio float64 `json:"display_ratio"`
 }
 
 // 默认配置
@@ -30,6 +35,7 @@ var generalSetting = GeneralSetting{
 	QuotaDisplayType:           QuotaDisplayTypeUSD,
 	CustomCurrencySymbol:       "¤",
 	CustomCurrencyExchangeRate: 1.0,
+	DisplayRatio:               1.0,
 }
 
 func init() {
@@ -88,4 +94,14 @@ func GetUsdToCurrencyRate(usdToCny float64) float64 {
 	default:
 		return 1
 	}
+}
+
+// GetDisplayRatio 返回显示倍率
+// 用于前端展示虚标：pricing API 的 model_ratio 乘以此值，quota_per_unit 除以此值
+// 不影响后端实际扣费逻辑
+func GetDisplayRatio() float64 {
+	if generalSetting.DisplayRatio <= 0 {
+		return 1.0
+	}
+	return generalSetting.DisplayRatio
 }

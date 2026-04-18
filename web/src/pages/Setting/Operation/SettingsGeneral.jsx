@@ -50,6 +50,7 @@ export default function GeneralSettings(props) {
     'general_setting.quota_display_type': 'USD',
     'general_setting.custom_currency_symbol': '¤',
     'general_setting.custom_currency_exchange_rate': '',
+    'general_setting.display_ratio': '',
     QuotaPerUnit: '',
     RetryTimes: '',
     USDExchangeRate: '',
@@ -388,6 +389,22 @@ export default function GeneralSettings(props) {
                   checkedText='｜'
                   uncheckedText='〇'
                   onChange={handleFieldChange('SelfUseModeEnabled')}
+                />
+              </Col>
+            </Row>
+            <Row gutter={16}>
+              <Col xs={24} sm={12} md={8} lg={8} xl={8}>
+                <Form.InputNumber
+                  label={t('显示倍率 (DisplayRatio)')}
+                  field={'general_setting.display_ratio'}
+                  step={0.01}
+                  min={0.01}
+                  max={10}
+                  extraText={t(
+                    '前端价格和余额的显示系数。默认 1.0 表示不调整；小于 1 则降低显示价格、膨胀余额显示。不影响实际扣费。例如 0.275 表示显示价格为实际的 27.5%',
+                  )}
+                  placeholder={'1.0'}
+                  onChange={handleFieldChange('general_setting.display_ratio')}
                 />
               </Col>
             </Row>

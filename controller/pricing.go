@@ -4,6 +4,7 @@ import (
 	"github.com/QuantumNous/new-api/common"
 	"github.com/QuantumNous/new-api/model"
 	"github.com/QuantumNous/new-api/service"
+	"github.com/QuantumNous/new-api/setting/operation_setting"
 	"github.com/QuantumNous/new-api/setting/ratio_setting"
 
 	"github.com/gin-gonic/gin"
@@ -33,6 +34,25 @@ func filterPricingByUsableGroups(pricing []model.Pricing, usableGroup map[string
 	return filtered
 }
 
+// applyDisplayRatio 对 pricing 数据应用显示倍率，返回一个新的切片
+// 只修改前端展示的 model_ratio（QuotaType==0 的模型），不影响实际扣费
+func applyDisplayRatio(pricing []model.Pricing, displayRatio float64) []model.Pricing {
+	if displayRatio == 1.0 {
+		return pricing
+	}
+	result := make([]model.Pricing, len(pricing))
+	for i, p := range pricing {
+		result[i] = p // 值拷贝
+		if p.QuotaType == 0 {
+			result[i].ModelRatio = p.ModelRatio * displayRatio
+		}
+		if p.QuotaType == 1 {
+			result[i].ModelPrice = p.ModelPrice * displayRatio
+		}
+	}
+	return result
+}
+
 func GetPricing(c *gin.Context) {
 	pricing := model.GetPricing()
 	userId, exists := c.Get("id")
@@ -57,6 +77,11 @@ func GetPricing(c *gin.Context) {
 
 	usableGroup = service.GetUserUsableGroups(group)
 	pricing = filterPricingByUsableGroups(pricing, usableGroup)
+
+	// 应用显示倍率（虚标）：将 model_ratio / model_price 乘以 DisplayRatio
+	displayRatio := operation_setting.GetDisplayRatio()
+	pricing = applyDisplayRatio(pricing, displayRatio)
+
 	// check groupRatio contains usableGroup
 	for group := range ratio_setting.GetGroupRatioCopy() {
 		if _, ok := usableGroup[group]; !ok {
