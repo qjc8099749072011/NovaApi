@@ -34,7 +34,6 @@ import {
   Banner,
   Button,
 } from '@douyinfe/semi-ui';
-import { IconGithubLogo, IconSend } from '@douyinfe/semi-icons';
 
 const { Title, Paragraph, Text } = Typography;
 

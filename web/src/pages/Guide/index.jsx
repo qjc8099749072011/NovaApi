@@ -31,13 +31,12 @@ import {
 } from '@douyinfe/semi-ui';
 import {
   IconCode,
-  IconStar,
-  IconBook,
   IconHelpCircle,
-  IconDollarSign,
+  IconCoinMoneyStroked,
   IconKey,
   IconBolt,
   IconCopy,
+  IconInfoCircle,
 } from '@douyinfe/semi-icons';
 import { useTranslation } from 'react-i18next';
 import { showSuccess } from '../../helpers';
@@ -183,7 +182,7 @@ const Guide = () => {
         <TabPane
           tab={
             <span>
-              <IconDollarSign style={{ marginRight: 4 }} />
+              <IconCoinMoneyStroked style={{ marginRight: 4 }} />
               充值说明
             </span>
           }
@@ -516,7 +515,7 @@ for chunk in stream:
         <TabPane
           tab={
             <span>
-              <IconStar style={{ marginRight: 4 }} />
+              <IconInfoCircle style={{ marginRight: 4 }} />
               支持的模型
             </span>
           }
@@ -648,7 +647,7 @@ for chunk in stream:
         <TabPane
           tab={
             <span>
-              <IconBook style={{ marginRight: 4 }} />
+              <IconInfoCircle style={{ marginRight: 4 }} />
               定价说明
             </span>
           }
