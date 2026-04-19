@@ -26,6 +26,17 @@ import {
   IllustrationConstructionDark,
 } from '@douyinfe/semi-illustrations';
 import { useTranslation } from 'react-i18next';
+import {
+  Card,
+  Typography,
+  Tag,
+  Divider,
+  Banner,
+  Button,
+} from '@douyinfe/semi-ui';
+import { IconGithubLogo, IconSend } from '@douyinfe/semi-icons';
+
+const { Title, Paragraph, Text } = Typography;
 
 const About = () => {
   const { t } = useTranslation();
@@ -60,75 +71,134 @@ const About = () => {
   };
 
   const customDescription = (
-    <div style={{ textAlign: 'center' }}>
-      <p>{t('可在设置页面设置关于内容，支持 HTML & Markdown')}</p>
-      {t('New API项目仓库地址：')}
-      <a
-        href='https://github.com/QuantumNous/new-api'
-        target='_blank'
-        rel='noopener noreferrer'
-        className='!text-semi-color-primary'
+    <div style={{ maxWidth: 800, margin: '0 auto' }}>
+      {/* NovaAPI 平台介绍 */}
+      <div style={{ textAlign: 'center', marginBottom: 32 }}>
+        <Title heading={2} style={{ marginBottom: 8 }}>
+          🌟 NovaAPI
+        </Title>
+        <Paragraph
+          style={{ fontSize: 16, color: 'var(--semi-color-text-1)', lineHeight: 1.8 }}
+        >
+          智能 AI API 聚合服务平台
+        </Paragraph>
+      </div>
+
+      <Card
+        title='🎯 平台简介'
+        style={{ marginBottom: 16, textAlign: 'left' }}
       >
-        https://github.com/QuantumNous/new-api
-      </a>
-      <p>
-        <a
-          href='https://github.com/QuantumNous/new-api'
-          target='_blank'
-          rel='noopener noreferrer'
-          className='!text-semi-color-primary'
+        <Paragraph style={{ lineHeight: 1.8 }}>
+          NovaAPI 是一个专业的 AI API
+          聚合服务平台，致力于为开发者提供简单、高效、稳定的人工智能接口服务。
+          我们聚合了全球主流的 AI 大模型，通过统一的 API
+          格式对外提供服务，让您无需对接多个供应商，一个接口即可调用所有模型。
+        </Paragraph>
+      </Card>
+
+      <Card
+        title='🤖 支持的模型'
+        style={{ marginBottom: 16, textAlign: 'left' }}
+      >
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          <Tag color='green' size='large'>OpenAI (GPT-4o, o1, o3)</Tag>
+          <Tag color='orange' size='large'>Anthropic (Claude)</Tag>
+          <Tag color='blue' size='large'>Google (Gemini)</Tag>
+          <Tag color='purple' size='large'>智谱 (GLM)</Tag>
+          <Tag color='cyan' size='large'>DeepSeek</Tag>
+          <Tag color='violet' size='large'>Moonshot (Kimi)</Tag>
+          <Tag color='teal' size='large'>阿里通义 (Qwen)</Tag>
+          <Tag size='large'>Meta (Llama)</Tag>
+          <Tag size='large'>Mistral</Tag>
+          <Tag size='large'>百度文心</Tag>
+          <Tag size='large'>讯飞星火</Tag>
+          <Tag size='large'>xAI (Grok)</Tag>
+        </div>
+        <Paragraph
+          type='tertiary'
+          style={{ marginTop: 12, fontSize: 13 }}
         >
-          NewAPI
-        </a>{' '}
-        {t('© {{currentYear}}', { currentYear })}{' '}
-        <a
-          href='https://github.com/QuantumNous'
-          target='_blank'
-          rel='noopener noreferrer'
-          className='!text-semi-color-primary'
-        >
-          QuantumNous
-        </a>{' '}
-        {t('| 基于')}{' '}
-        <a
-          href='https://github.com/songquanpeng/one-api/releases/tag/v0.5.4'
-          target='_blank'
-          rel='noopener noreferrer'
-          className='!text-semi-color-primary'
-        >
-          One API v0.5.4
-        </a>{' '}
-        © 2023{' '}
-        <a
-          href='https://github.com/songquanpeng'
-          target='_blank'
-          rel='noopener noreferrer'
-          className='!text-semi-color-primary'
-        >
-          JustSong
-        </a>
-      </p>
-      <p>
-        {t('本项目根据')}
-        <a
-          href='https://github.com/songquanpeng/one-api/blob/v0.5.4/LICENSE'
-          target='_blank'
-          rel='noopener noreferrer'
-          className='!text-semi-color-primary'
-        >
-          {t('MIT许可证')}
-        </a>
-        {t('授权，需在遵守')}
-        <a
-          href='https://www.gnu.org/licenses/agpl-3.0.html'
-          target='_blank'
-          rel='noopener noreferrer'
-          className='!text-semi-color-primary'
-        >
-          {t('AGPL v3.0协议')}
-        </a>
-        {t('的前提下使用。')}
-      </p>
+          以及更多模型持续接入中...
+        </Paragraph>
+      </Card>
+
+      <Card
+        title='✨ 平台特点'
+        style={{ marginBottom: 16, textAlign: 'left' }}
+      >
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
+          {[
+            {
+              icon: '🔗',
+              title: '统一 API 接口',
+              desc: '兼容 OpenAI API 格式，无缝迁移现有项目',
+            },
+            {
+              icon: '💰',
+              title: '按量计费',
+              desc: '用多少付多少，无最低消费，价格透明',
+            },
+            {
+              icon: '⚡',
+              title: '高可用性',
+              desc: '多节点负载均衡，自动故障转移，保障稳定',
+            },
+            {
+              icon: '🛡️',
+              title: '安全可靠',
+              desc: 'HTTPS 加密传输，数据隐私保护',
+            },
+            {
+              icon: '📊',
+              title: '用量可视',
+              desc: '详细的使用日志和费用统计',
+            },
+            {
+              icon: '🔄',
+              title: '模型丰富',
+              desc: '持续接入最新模型，满足各类需求',
+            },
+          ].map((item, idx) => (
+            <div key={idx} style={{ padding: '8px 0' }}>
+              <div style={{ fontSize: 24, marginBottom: 4 }}>{item.icon}</div>
+              <Text strong style={{ fontSize: 14 }}>{item.title}</Text>
+              <br />
+              <Text type='tertiary' style={{ fontSize: 13 }}>{item.desc}</Text>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card
+        title='📬 联系我们'
+        style={{ marginBottom: 16, textAlign: 'left' }}
+      >
+        <Paragraph style={{ lineHeight: 2 }}>
+          <Text strong>客服邮箱：</Text>
+          <Text copyable style={{ color: 'var(--semi-color-primary)' }}>
+            support@novaapi.cn
+          </Text>
+        </Paragraph>
+        <Paragraph style={{ lineHeight: 2 }}>
+          <Text strong>官方网站：</Text>
+          <Text copyable style={{ color: 'var(--semi-color-primary)' }}>
+            https://novaapi.cn
+          </Text>
+        </Paragraph>
+        <Banner
+          type='info'
+          description='如遇到任何问题，欢迎通过邮件联系我们的技术支持团队，我们会在工作时间内尽快回复。'
+          style={{ marginTop: 8 }}
+        />
+      </Card>
+
+      <Divider />
+
+      <div style={{ textAlign: 'center', padding: '16px 0' }}>
+        <Text type='tertiary' style={{ fontSize: 13 }}>
+          © {currentYear} NovaAPI — 智能 AI API 聚合服务平台
+        </Text>
+      </div>
     </div>
   );
 

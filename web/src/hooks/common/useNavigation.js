@@ -26,6 +26,7 @@ export const useNavigation = (t, docsLink, headerNavModules) => {
       home: true,
       console: true,
       pricing: true,
+      guide: true,
       docs: true,
       about: true,
     };
@@ -48,6 +49,11 @@ export const useNavigation = (t, docsLink, headerNavModules) => {
         text: t('模型广场'),
         itemKey: 'pricing',
         to: '/pricing',
+      },
+      {
+        text: t('使用文档'),
+        itemKey: 'guide',
+        to: '/guide',
       },
       ...(docsLink
         ? [
@@ -76,6 +82,10 @@ export const useNavigation = (t, docsLink, headerNavModules) => {
         return typeof modules.pricing === 'object'
           ? modules.pricing.enabled
           : modules.pricing;
+      }
+      // guide 默认显示（向后兼容：旧配置中无 guide 字段时默认为 true）
+      if (link.itemKey === 'guide') {
+        return modules.guide !== false;
       }
       return modules[link.itemKey] === true;
     });
