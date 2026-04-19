@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"math"
+
 	"github.com/QuantumNous/new-api/common"
 	"github.com/QuantumNous/new-api/model"
 	"github.com/QuantumNous/new-api/service"
@@ -44,13 +46,18 @@ func applyDisplayRatio(pricing []model.Pricing, displayRatio float64) []model.Pr
 	for i, p := range pricing {
 		result[i] = p // 值拷贝
 		if p.QuotaType == 0 {
-			result[i].ModelRatio = p.ModelRatio * displayRatio
+			result[i].ModelRatio = roundTo6(p.ModelRatio * displayRatio)
 		}
 		if p.QuotaType == 1 {
-			result[i].ModelPrice = p.ModelPrice * displayRatio
+			result[i].ModelPrice = roundTo6(p.ModelPrice * displayRatio)
 		}
 	}
 	return result
+}
+
+// roundTo6 将浮点数四舍五入到6位小数，消除浮点乘法精度噪声
+func roundTo6(f float64) float64 {
+	return math.Round(f*1e6) / 1e6
 }
 
 func GetPricing(c *gin.Context) {
